@@ -17,12 +17,49 @@ class Shopsystem(Database):
         id = input("Enter shopid number: ")
         specialties = input("Enter shop specialties: ")
         owner = input("Enter owner's name: ")
-        Database().setitem(id, name, specialties, owner)
-        self.update("data.py", self.arr)
-        print("Done")
+        action = Database().setitem(id, name, specialties, owner)
+        if (action):
+            self.update("data.py", self.arr)
+        else:
+            print("Shop with same ID already exists")
 
     def updatedetails(self):
-        pass
+        try:
+            id = input("Please enter shop id: \n")
+            shop_details = Database().get(id)
+            selection = int(input("What will you like to edit: \n"))
+            if selection == 1:
+                name = shop_details.pop(0)
+                new_name = input("\nPlease enter the new name for the shop: \n")
+                if new_name:
+                    hash = Database().get_hash(id)
+                    shop_details.insert(0, new_name)
+                    self.arr[hash].append(shop_details)
+                    self.update("data.py", self.arr)
+                    print("Done!")
+                else:
+                    print("Invalid operation, Please make sure you entered a name")
+            elif selection == 2:
+                hash = Database().get_hash(id)
+                det = shop_details.pop(1)
+                new_det = input("Please enter shop administrator's name: \n")
+                det["owner"] = new_det
+                shop_details.append(det)
+                self.arr[hash].append(shop_details)
+                self.update("data.py", self.arr)
+                print("Done!")
+
+            elif selection == 3:
+                hash = Database().get_hash(id)
+                det = shop_details.pop(1)
+                new_det = input("Please enter shop specialties: \n")
+                det["specialties"] = new_det
+                shop_details.append(det)
+                self.arr[hash].append(shop_details)
+                self.update("data.py", self.arr)
+                print("Done!")
+        except:
+            print("Invalid operation")
 
     def removeshop(self):
         id = input("Please enter the shop id: ")
@@ -34,4 +71,9 @@ class Shopsystem(Database):
         print(Database().getitem(id))
 
     def view_allshops(self):
-        pass
+        result = []
+        for i in self.arr:
+            if i:
+                for x in i:
+                    result.append(x[0])
+        print(*result)

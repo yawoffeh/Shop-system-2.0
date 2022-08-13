@@ -14,6 +14,11 @@ class Database:
 
     def setitem(self, shopid, shop_name, shop_specialties, owner_name):
         hash = self.get_hash(shopid)
+        if self.arr[hash]:
+            for j in self.arr[hash]:
+                if j[1]["shopid"] == shopid:
+                    print(shopid)
+                    return False
         (self.arr[hash]).append([shop_name, {"shopid": shopid,"specialties": shop_specialties, "owner": owner_name}])
         return True
 
@@ -37,3 +42,14 @@ class Database:
                 self.arr[hash].pop(i)
                 return "Done"
         return "Invalid shopid"
+
+    def get(self, shopid):
+        hash = self.get_hash(shopid)
+        details = ""
+        for i, j in enumerate(self.arr[hash]):
+            if j[1]["shopid"] == shopid:
+                details = self.arr[hash].pop(i)
+        if details:
+            return details
+        else:
+            return None

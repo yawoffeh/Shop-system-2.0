@@ -4,24 +4,23 @@ options = """
 [2]-- Add a new shop details
 [3]-- Modify an existing shop's details
 [4]-- Get a shop's details
-[5]-- Romove a shop
+[5]-- Remove a shop
 """
 def main():
     user = Shopsystem()
     print(options)
     selection = int(input())
     if selection == 1:
-        pass
+        user.view_allshops()
     if selection == 2:
         user.addshop()
     if selection == 3:
-        pass
+        user.updatedetails()
     if selection == 4:
         user.view_shop()
     if selection == 5:
         user.removeshop()
-    else:
-        print("Invalid input!!!")
+
 
 
 if __name__ == "__main__":
