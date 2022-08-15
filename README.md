@@ -4,6 +4,12 @@ A simple program where a large shop or supermarket or mall manager can keep trac
 
 Original program <a href="https://github.com/Building-Devs/shop-system">shop-system</a>
 
+## Run file
+
+```bash
+python3 main.py
+```
+
 # Storage
 
 [1] All shops are given a unique shopid which the manager can use to get access to the shop details
